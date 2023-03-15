@@ -2,9 +2,7 @@ name: "Pejal Rath"
 navbar:
   title: "My Website"
   left:
-    - text: "Home"
+    - text: "About"
       href: index.html
     - text: "Case Study"
       href: Case-study-1.html
-    - text: "About"
-      href: about.html
