@@ -6,3 +6,5 @@ navbar:
       href: index.html
     - text: "Case Study"
       href: Case-study-1.html
+    - text: "About"
+      href: about.html

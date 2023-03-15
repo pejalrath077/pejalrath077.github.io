@@ -250,6 +250,9 @@ $(document).ready(function () {
 <li>
   <a href="Case-study-1.html">Case Study</a>
 </li>
+<li>
+  <a href="about.html">About</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -272,76 +275,18 @@ $(document).ready(function () {
 <pre class="r"><code>#1. How many breweries are present in each state?
 
 library(e1071)
-library(tm) #text mining library provides the stopwords() function</code></pre>
-<pre><code>## Loading required package: NLP</code></pre>
-<pre class="r"><code>library(tidyr)
+library(tm) #text mining library provides the stopwords() function
+library(tidyr)
 library(plyr)
 library(jsonlite)
-library(dplyr)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;dplyr&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:plyr&#39;:
-## 
-##     arrange, count, desc, failwith, id, mutate, rename, summarise,
-##     summarize</code></pre>
-<pre><code>## The following objects are masked from &#39;package:stats&#39;:
-## 
-##     filter, lag</code></pre>
-<pre><code>## The following objects are masked from &#39;package:base&#39;:
-## 
-##     intersect, setdiff, setequal, union</code></pre>
-<pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>## ── Attaching packages
-## ───────────────────────────────────────
-## tidyverse 1.3.2 ──</code></pre>
-<pre><code>## ✔ ggplot2 3.4.0     ✔ purrr   1.0.0
-## ✔ tibble  3.1.8     ✔ stringr 1.5.0
-## ✔ readr   2.1.3     ✔ forcats 0.5.2
-## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-## ✖ ggplot2::annotate() masks NLP::annotate()
-## ✖ dplyr::arrange()    masks plyr::arrange()
-## ✖ purrr::compact()    masks plyr::compact()
-## ✖ dplyr::count()      masks plyr::count()
-## ✖ dplyr::failwith()   masks plyr::failwith()
-## ✖ dplyr::filter()     masks stats::filter()
-## ✖ purrr::flatten()    masks jsonlite::flatten()
-## ✖ dplyr::id()         masks plyr::id()
-## ✖ dplyr::lag()        masks stats::lag()
-## ✖ dplyr::mutate()     masks plyr::mutate()
-## ✖ dplyr::rename()     masks plyr::rename()
-## ✖ dplyr::summarise()  masks plyr::summarise()
-## ✖ dplyr::summarize()  masks plyr::summarize()</code></pre>
-<pre class="r"><code>library(mvtnorm)
-library(caret)</code></pre>
-<pre><code>## Loading required package: lattice
-## 
-## Attaching package: &#39;caret&#39;
-## 
-## The following object is masked from &#39;package:purrr&#39;:
-## 
-##     lift</code></pre>
-<pre class="r"><code>library(class)
+library(dplyr)
+library(tidyverse)
+library(mvtnorm)
+library(caret)
+library(class)
 library(ggplot2)
-library(plotly)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;plotly&#39;
-## 
-## The following object is masked from &#39;package:ggplot2&#39;:
-## 
-##     last_plot
-## 
-## The following objects are masked from &#39;package:plyr&#39;:
-## 
-##     arrange, mutate, rename, summarise
-## 
-## The following object is masked from &#39;package:stats&#39;:
-## 
-##     filter
-## 
-## The following object is masked from &#39;package:graphics&#39;:
-## 
-##     layout</code></pre>
-<pre class="r"><code>library(ggthemes)
+library(plotly)
+library(ggthemes)
 
 beer=read.csv(file.choose(),header = TRUE)
 brewer=read.csv(file.choose(),header = TRUE)
@@ -351,8 +296,7 @@ brewerByState=brewer %&gt;% count(State)
 colnames(brewerByState)[2]=&quot;Count&quot;
 
 brewerByState %&gt;% ggplot(aes(x=State,y=Count,fill=State))+geom_histogram(stat = &quot;summary&quot;) +geom_text(aes(label = Count), vjust = -0.5)+ggtitle(&quot;Breweries Present By Each State&quot;)+ theme_economist()+theme(legend.position = &quot;none&quot;,axis.title = element_text(size = 25),plot.title = element_text(size = 30, face = &quot;bold&quot;))</code></pre>
-<pre><code>## Warning in geom_histogram(stat = &quot;summary&quot;): Ignoring unknown parameters:
-## `binwidth`, `bins`, and `pad`</code></pre>
+<pre><code>## Warning in geom_histogram(stat = &quot;summary&quot;): Ignoring unknown parameters: `binwidth`, `bins`, and `pad`</code></pre>
 <pre><code>## No summary function supplied, defaulting to `mean_se()`</code></pre>
 <p><img src="Case-study-1_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
 <pre class="r"><code>#3. Address the missing values in each column.
