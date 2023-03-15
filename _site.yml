@@ -1,0 +1,8 @@
+name: "Pejal Rath"
+navbar:
+  title: "My Website"
+  left:
+    - text: "Home"
+      href: index.html
+    - text: "Case Study"
+      href: Case-study-1.html
