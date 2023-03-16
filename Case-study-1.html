@@ -11,7 +11,7 @@
 
 <meta name="author" content="Pejal Rath and Kyle Kuberski" />
 
-<meta name="date" content="2023-03-15" />
+<meta name="date" content="2023-03-16" />
 
 <title>Project 1</title>
 
@@ -240,7 +240,7 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">My Website</a>
+      <a class="navbar-brand" href="index.html">Data Science Master Program</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -249,6 +249,9 @@ $(document).ready(function () {
 </li>
 <li>
   <a href="Case-study-1.html">Case Study</a>
+</li>
+<li>
+  <a href="RShiny-App.html">RShiny App</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -264,26 +267,87 @@ $(document).ready(function () {
 
 <h1 class="title toc-ignore">Project 1</h1>
 <h4 class="author">Pejal Rath and Kyle Kuberski</h4>
-<h4 class="date">2023-03-15</h4>
+<h4 class="date">2023-03-16</h4>
 
 </div>
 
 
+<div id="rshiny-app" class="section level1">
+<h1>RShiny App</h1>
+<p><a href="https://prath.shinyapps.io/unit_12/">Check out the RShiny
+App</a></p>
 <pre class="r"><code>#1. How many breweries are present in each state?
 
 library(e1071)
-library(tm) #text mining library provides the stopwords() function
-library(tidyr)
+library(tm) #text mining library provides the stopwords() function</code></pre>
+<pre><code>## Loading required package: NLP</code></pre>
+<pre class="r"><code>library(tidyr)
 library(plyr)
 library(jsonlite)
-library(dplyr)
-library(tidyverse)
-library(mvtnorm)
-library(caret)
-library(class)
+library(dplyr)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:plyr&#39;:
+## 
+##     arrange, count, desc, failwith, id, mutate, rename, summarise, summarize</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>## ── Attaching packages
+## ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## tidyverse 1.3.2 ──</code></pre>
+<pre><code>## ✔ ggplot2 3.4.0     ✔ purrr   1.0.0
+## ✔ tibble  3.1.8     ✔ stringr 1.5.0
+## ✔ readr   2.1.3     ✔ forcats 0.5.2
+## ── Conflicts ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ ggplot2::annotate() masks NLP::annotate()
+## ✖ dplyr::arrange()    masks plyr::arrange()
+## ✖ purrr::compact()    masks plyr::compact()
+## ✖ dplyr::count()      masks plyr::count()
+## ✖ dplyr::failwith()   masks plyr::failwith()
+## ✖ dplyr::filter()     masks stats::filter()
+## ✖ purrr::flatten()    masks jsonlite::flatten()
+## ✖ dplyr::id()         masks plyr::id()
+## ✖ dplyr::lag()        masks stats::lag()
+## ✖ dplyr::mutate()     masks plyr::mutate()
+## ✖ dplyr::rename()     masks plyr::rename()
+## ✖ dplyr::summarise()  masks plyr::summarise()
+## ✖ dplyr::summarize()  masks plyr::summarize()</code></pre>
+<pre class="r"><code>library(mvtnorm)
+library(caret)</code></pre>
+<pre><code>## Loading required package: lattice
+## 
+## Attaching package: &#39;caret&#39;
+## 
+## The following object is masked from &#39;package:purrr&#39;:
+## 
+##     lift</code></pre>
+<pre class="r"><code>library(class)
 library(ggplot2)
-library(plotly)
-library(ggthemes)
+library(plotly)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;plotly&#39;
+## 
+## The following object is masked from &#39;package:ggplot2&#39;:
+## 
+##     last_plot
+## 
+## The following objects are masked from &#39;package:plyr&#39;:
+## 
+##     arrange, mutate, rename, summarise
+## 
+## The following object is masked from &#39;package:stats&#39;:
+## 
+##     filter
+## 
+## The following object is masked from &#39;package:graphics&#39;:
+## 
+##     layout</code></pre>
+<pre class="r"><code>library(ggthemes)
 
 beer=read.csv(file.choose(),header = TRUE)
 brewer=read.csv(file.choose(),header = TRUE)
@@ -481,6 +545,7 @@ ggplot(top_5_size, aes(x = Ounces, y = count)) +
   ylab(&quot;Count&quot;) +
   ggtitle(&quot;Number of Beers by Size&quot;)+ theme_economist()+theme(legend.position = &quot;none&quot;,axis.title = element_text(size = 25),plot.title = element_text(size = 30, face = &quot;bold&quot;))</code></pre>
 <p><img src="Case-study-1_files/figure-html/unnamed-chunk-1-12.png" width="672" /></p>
+</div>
 
 
 

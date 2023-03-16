@@ -1,8 +1,10 @@
 name: "Pejal Rath"
 navbar:
-  title: "My Website"
+  title: "Data Science Master Program"
   left:
     - text: "About"
       href: index.html
     - text: "Case Study"
       href: Case-study-1.html
+    - text: "RShiny App"
+      href: RShiny-App.html
