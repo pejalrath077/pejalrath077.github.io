@@ -3,4 +3,4 @@ output: html_document
 ---
 
 # RShiny App
-[Check out the RShiny App](https://prath.shinyapps.io/unit_12/)
+[Check out the RShiny App](https://prath.shinyapps.io/Project2/)

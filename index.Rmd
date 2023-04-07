@@ -2,7 +2,7 @@
 output: html_document
 ---
 
-# For Live Session  Unit 12 
+# Project 2
 ## Pejal Rath
 
 ### Biography

@@ -272,108 +272,20 @@ $(document).ready(function () {
 </div>
 
 
-<pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>## ── Attaching packages ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.3.2 ──
-## ✔ ggplot2 3.4.0      ✔ purrr   1.0.0 
-## ✔ tibble  3.1.8      ✔ dplyr   1.0.10
-## ✔ tidyr   1.2.1      ✔ stringr 1.5.0 
-## ✔ readr   2.1.3      ✔ forcats 0.5.2 
-## ── Conflicts ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
-## ✖ dplyr::filter() masks stats::filter()
-## ✖ dplyr::lag()    masks stats::lag()</code></pre>
-<pre class="r"><code>library(fpp)</code></pre>
-<pre><code>## Loading required package: forecast
-## Registered S3 method overwritten by &#39;quantmod&#39;:
-##   method            from
-##   as.zoo.data.frame zoo 
-## Loading required package: fma
-## 
-## Attaching package: &#39;fma&#39;
-## 
-## The following object is masked _by_ &#39;.GlobalEnv&#39;:
-## 
-##     beer
-## 
-## Loading required package: expsmooth
-## Loading required package: lmtest
-## Loading required package: zoo
-## 
-## Attaching package: &#39;zoo&#39;
-## 
-## The following objects are masked from &#39;package:base&#39;:
-## 
-##     as.Date, as.Date.numeric
-## 
-## Loading required package: tseries
-## 
-##     &#39;tseries&#39; version: 0.10-53
-## 
-##     &#39;tseries&#39; is a package for time series analysis and computational finance.
-## 
-##     See &#39;library(help=&quot;tseries&quot;)&#39; for details.</code></pre>
-<pre class="r"><code>library(class)
-library(caret)</code></pre>
-<pre><code>## Loading required package: lattice
-## 
-## Attaching package: &#39;caret&#39;
-## 
-## The following object is masked from &#39;package:purrr&#39;:
-## 
-##     lift</code></pre>
-<pre class="r"><code>library(e1071)
+<pre class="r"><code>library(tidyverse)
+library(fpp)
+library(class)
+library(caret)
+library(e1071)
 library(dplyr)
-library(Metrics)</code></pre>
-<pre><code>## Warning: package &#39;Metrics&#39; was built under R version 4.2.3</code></pre>
-<pre><code>## 
-## Attaching package: &#39;Metrics&#39;
-## 
-## The following objects are masked from &#39;package:caret&#39;:
-## 
-##     precision, recall
-## 
-## The following object is masked from &#39;package:forecast&#39;:
-## 
-##     accuracy</code></pre>
-<pre class="r"><code>library(&quot;RCurl&quot;) </code></pre>
-<pre><code>## Warning: package &#39;RCurl&#39; was built under R version 4.2.3</code></pre>
-<pre><code>## 
-## Attaching package: &#39;RCurl&#39;
-## 
-## The following object is masked from &#39;package:lmtest&#39;:
-## 
-##     reset
-## 
-## The following object is masked from &#39;package:tidyr&#39;:
-## 
-##     complete</code></pre>
-<pre class="r"><code>library(ggplot2)
-library(plotly)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;plotly&#39;
-## 
-## The following object is masked from &#39;package:ggplot2&#39;:
-## 
-##     last_plot
-## 
-## The following object is masked from &#39;package:stats&#39;:
-## 
-##     filter
-## 
-## The following object is masked from &#39;package:graphics&#39;:
-## 
-##     layout</code></pre>
-<pre class="r"><code>library(ggthemes)
-library(GGally)</code></pre>
-<pre><code>## Registered S3 method overwritten by &#39;GGally&#39;:
-##   method from   
-##   +.gg   ggplot2
-## 
-## Attaching package: &#39;GGally&#39;
-## 
-## The following object is masked from &#39;package:fma&#39;:
-## 
-##     pigs</code></pre>
-<pre class="r"><code># CaseStudy2-data
+library(Metrics)
+library(&quot;RCurl&quot;) 
+library(ggplot2)
+library(plotly)
+library(ggthemes)
+library(GGally)
+
+# CaseStudy2-data
 df &lt;- read.table(textConnection(getURL(&quot;https://s3.us-east-2.amazonaws.com/ddsproject1/CaseStudy2-data.csv&quot;)), sep=&quot;,&quot;, header=TRUE)
 df$Attrition= factor(df$Attrition)
 df$BusinessTravel=as.factor(df$BusinessTravel)
