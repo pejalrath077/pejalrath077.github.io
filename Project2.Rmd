@@ -1,0 +1,144 @@
+---
+title: "Project2"
+author: "Pejal Rath"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+
+```{r}
+library(tidyverse)
+library(fpp)
+library(class)
+library(caret)
+library(e1071)
+library(dplyr)
+library(Metrics)
+library("RCurl") 
+library(ggplot2)
+library(plotly)
+library(ggthemes)
+library(GGally)
+
+# CaseStudy2-data
+df <- read.table(textConnection(getURL("https://s3.us-east-2.amazonaws.com/ddsproject1/CaseStudy2-data.csv")), sep=",", header=TRUE)
+df$Attrition= factor(df$Attrition)
+df$BusinessTravel=as.factor(df$BusinessTravel)
+df$Department=as.factor(df$Department)
+df$Gender=as.factor(df$Gender)
+df$JobRole=as.factor(df$JobRole)
+df$MaritalStatus=as.factor(df$MaritalStatus)
+df$Over18=as.factor(df$Over18)
+df$OverTime=as.factor(df$OverTime)
+df$OverTime_1<-ifelse(df$OverTime == "Yes", 1,0) 
+
+# CaseStudy2CompSet+No+Attrition
+df_noAtt <- read.table(textConnection(getURL("https://s3.us-east-2.amazonaws.com/ddsproject1/CaseStudy2CompSet+No+Attrition.csv")), sep=",", header=TRUE)
+df_noAtt$BusinessTravel=as.factor(df_noAtt$BusinessTravel)
+df_noAtt$Department=as.factor(df_noAtt$Department)
+df_noAtt$Gender=as.factor(df_noAtt$Gender)
+df_noAtt$JobRole=as.factor(df_noAtt$JobRole)
+df_noAtt$MaritalStatus=as.factor(df_noAtt$MaritalStatus)
+df_noAtt$Over18=as.factor(df_noAtt$Over18)
+df_noAtt$OverTime=as.factor(df_noAtt$OverTime)
+df_noAtt$OverTime_1<-ifelse(df_noAtt$OverTime == "Yes", 1,0) 
+# CaseStudy2CompSet+No+Salary
+df_noSalary <- read.table(textConnection(getURL("https://s3.us-east-2.amazonaws.com/ddsproject1/CaseStudy2CompSet+No+Salary.csv")), sep=",", header=TRUE)
+
+
+# Visualization
+# 1.Employee in early 20s tend to turn attrition
+df%>%ggplot(mapping=aes(x=Age,fill=Attrition))+geom_bar()+ggtitle("Attrition VS Age")+theme_solarized()
+# 2.Employee who less involvement in the job tend to turn attrition
+df%>%ggplot(mapping=aes(x=JobInvolvement,fill=Attrition))+geom_bar()+ggtitle("Attrition VS Job Involvement")+theme_solarized()
+# 3.Employee who work over time tend to turn attrition.
+df%>%ggplot(mapping=aes(x=OverTime,fill=Attrition))+geom_bar()+ggtitle("Attrition VS OverTime")+theme_solarized()
+# 4.Employee with the company less than 2 years tend to turn attrition
+df%>%ggplot(mapping=aes(x=YearsAtCompany,fill=Attrition))+geom_bar()+ggtitle("Attrition VS YearAtCompany")+theme_solarized()
+
+#KNN - Age+JobInvolvement+OverTime_1
+set.seed(10)
+df_knn=df[,c(-4,-6,-9,-10,-11,-13,-17,-19,-23,-24)]
+trainIndex = sample(seq(1,870,1), round(.7*870))
+
+train <- df_knn[trainIndex, ]
+test <- df_knn[-trainIndex, ]
+classifications = knn(train[,c(2,9,27)],test[,c(2,9,27)],train$Attrition, prob = TRUE, k = 5)
+confusionMatrix(table(classifications,test$Attrition))
+
+# Naive Baye- Find average accuracry, sensitivity and specificity from 1000 iteration. 
+#set.seed(2)
+Accuracy=data.frame(accuracy=c(0),sensitivity=c(0),specificity=c(0))
+j=1
+c1=c()
+c2=c()
+c3=c()
+for(a in 1:1000)
+{
+# Remove character column
+df_nb=df[,c(-4,-6,-9,-10,-11,-13,-17,-19,-23,-24)]
+trainIndex = sample(seq(1,870,1), round(.7*870))
+train <- df_nb[trainIndex, ]
+test <- df_nb[-trainIndex, ]
+
+model <- naiveBayes(Attrition ~ Age+JobInvolvement+OverTime_1, data = train)
+classifications <- predict(model, newdata = test,type="raw")
+#Threshold start
+
+NewClass = ifelse(classifications[,2] > .2, "Yes", "No")
+table(NewClass,test$Attrition)
+CM = confusionMatrix(table(NewClass,test$Attrition))
+#CM
+#Threshold End
+c1[a]=CM$overall[1]
+c2[a]=CM$byClass[1]
+c3[a]=CM$byClass[2]
+}
+Accuracy[1,]$accuracy=mean(c1)
+Accuracy[1,]$sensitivity=mean(c2)
+Accuracy[1,]$specificity=mean(c3)
+Accuracy
+# Naive Baye - This is my final model use to predict attrition.
+set.seed(2)
+# Remove character column
+df_nb=df[,c(-4,-6,-9,-10,-11,-13,-17,-19,-23,-24)]
+trainIndex = sample(seq(1,870,1), round(.7*870))
+train <- df_nb[trainIndex, ]
+test <- df_nb[-trainIndex, ]
+
+model <- naiveBayes(Attrition ~ Age+JobInvolvement+OverTime_1, data = train)
+classifications <- predict(model, newdata = test,type="raw")
+#Threshold start
+
+NewClass = ifelse(classifications[,2] > .2, "Yes", "No")
+table(NewClass,test$Attrition)
+CM = confusionMatrix(table(NewClass,test$Attrition))
+CM
+
+# Predict CaseStudy2CompSet+No+Attrition
+# Remove character column
+df_testNoAtt=df_noAtt[,c(-3,-5,-8,-9,-10,-12,-16,-18,-22,-23)]
+classifications <- predict(model, newdata = df_testNoAtt,type="raw")
+#Threshold start
+NewClass = ifelse(classifications[,2] > .2, "Yes", "No")
+final_predictDF=data.frame(ID=df_noAtt$ID,Attrition=factor(NewClass))
+print(final_predictDF)
+
+# Salary
+# strong relationship
+df%>%ggplot(aes(x=Age, y=MonthlyIncome)) + geom_point() +ggtitle("Salary VS Age")+geom_smooth()+theme_solarized()
+df%>%ggplot(aes(x= JobLevel, y=MonthlyIncome)) + geom_point() +ggtitle("Salary VS Job Level")+geom_smooth()+theme_solarized()
+df%>%ggplot(aes(x= TotalWorkingYears, y=MonthlyIncome)) + geom_point() +ggtitle("Salary VS TotalWorkingYears")+geom_smooth()+theme_solarized()
+
+# Calculate the RMSE
+
+fit= lm(MonthlyIncome~Age+JobLevel+TotalWorkingYears,data=train)
+pred <- predict(fit, newdata = test)
+rmse <- RMSE(pred, test$MonthlyIncome)
+rmse
+
+# Predict CaseStudy2CompSet+No+Salary
+pred <- predict(fit, newdata = df_noSalary)
+final_predictSalary=data.frame(ID=df_noSalary$ï..ID,MonthlyIncome=round(pred))
+print(final_predictSalary)
+```

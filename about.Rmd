@@ -1,0 +1,8 @@
+---
+output: html_document
+---
+
+# Pejal Rath
+
+## Biography
+Pejal Rath is a member of the 2023 Spring cohort for the Masters of Science in Data Science at Southern Methodist University in Dallas, Texas. He has earned his Bachelors of Science degree in Computer Science at the University of California, Irvine. After graduating from UCI, he has been working professionally as software developer for three years at LTI. All of his professional experience have allowed him to understand the importance of data in today business which motivated him to seek more knowledge in data science domain.

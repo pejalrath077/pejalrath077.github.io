@@ -5,6 +5,6 @@ navbar:
     - text: "About"
       href: index.html
     - text: "Case Study"
-      href: Case-study-1.html
+      href: Project2.html
     - text: "RShiny App"
       href: RShiny-App.html
